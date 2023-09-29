@@ -1,0 +1,92 @@
+-----------------------
+CONFIGURAR VLAN
+-----------------------
+vlan <no.vlan>
+name <nombre vlan>
+-----------------------
+
+-------------------------------------
+ASIGNAR PUERTO A VLAN
+-------------------------------------
+int fa0/1 | int range fa0/1-fa0/7
+switchport mode access
+switchpor access vlan <no. de vlan>
+-------------------------------------
+
+-------------------------------------
+CONFIGURAR TRUNK EN UN SWITCH
+-------------------------------------
+int fa0/24
+switchport mode trunk
+switchport trunk allowed vlan <vlans>
+-------------------------------------
+
+
+-------------------------------------
+TRUNK EN ROUTER (interfaz)
+-------------------------------------
+int fa0/0
+ip address <IP GW><Mascara de red>
+no shutdown
+-------------------------------------
+
+
+-------------------------------------
+TRUNK EN ROUTER (subinterfaz)
+-------------------------------------
+int fa0/0.2
+encapsultacion dot1q <no. vlan>
+ip address <IP GW><Mascara de red>
+no shutdown
+-------------------------------------
+
+
+-------------------------------------
+DHCP EN ROUTER
+-------------------------------------
+ip dhcp excluded-address <ip>
+ip dhcp pool <nombre pool>
+network <id. de red><mascara>
+default-router <IP gateway>
+dns-server <ip servidor>
+end
+-------------------------------------
+
+
+-------------------------------------
+CONEXION DOS ROUTERS
+-------------------------------------
+int serial 0/0/0
+ip address <IP GW><Mascara>
+clock rate 64,000 (en caso de DCE)
+no shutdown
+-------------------------------------
+
+
+--------------------------------------------------------
+ROUTEO (INTERFAZ DE SALIDA)
+--------------------------------------------------------
+ip route <id. red destino><mascara><interfaz de salida>
+--------------------------------------------------------
+
+
+--------------------------------------------------------
+ROUTEO (SIGUIENTE SALTO)
+--------------------------------------------------------
+ip route <id. red destino><mascara><sig. salto>
+--------------------------------------------------------
+
+
+--------------------------------------------------------
+ROUTEO (DEFAULT)
+--------------------------------------------------------
+ip route <id. red destino><mascara> <sig. salto>
+				    <interfaz de salida>
+--------------------------------------------------------
+
+--------------------------------------------------------
+DHCP en otro router
+--------------------------------------------------------
+ip helper-address <IP GW> (dirección destino del lado
+		    	   de donde estamos llegando)
+--------------------------------------------------------
